@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: simulation-engine
+  
+  kafka:
+    # REPLACE THESE WITH YOUR CONFLUENT CLOUD VALUES
+    bootstrap-servers: YOUR_BOOTSTRAP_SERVER_URL
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="YOUR_API_KEY" password="YOUR_API_SECRET";
+    consumer:
+      group-id: simulation-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
