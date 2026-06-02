@@ -1,19 +1,31 @@
-server:
-  port: 8082
-
 spring:
-  application:
-    name: simulation-engine
-  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spac_db
+    username: postgres
+    password: Gauravpt@123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Set to 'update' to fix the missing column error
+    show-sql: true
   kafka:
-    # REPLACE THESE WITH YOUR CONFLUENT CLOUD VALUES
-    bootstrap-servers: YOUR_BOOTSTRAP_SERVER_URL
-    properties:
-      security.protocol: SASL_SSL
-      sasl.mechanism: PLAIN
-      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="YOUR_API_KEY" password="YOUR_API_SECRET";
+    bootstrap-servers: spac-kafka-dev-spac-simulator-dev.c.aivencloud.com:13249
     consumer:
       group-id: simulation-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    properties:
+      security:
+        protocol: SSL
+      ssl:
+        truststore:
+          location: C:/Users/gaura/OneDrive/Desktop/SPAC/simulation-engine/src/main/resources/certs/client.truststore.jks
+          password: Gauravpt@123
+          type: JKS
+        keystore:
+          location: C:/Users/gaura/OneDrive/Desktop/SPAC/simulation-engine/src/main/resources/certs/client.keystore.p12
+          password: Gauravpt@123
+          type: PKCS12
+        key:
+          password: Gauravpt@123
