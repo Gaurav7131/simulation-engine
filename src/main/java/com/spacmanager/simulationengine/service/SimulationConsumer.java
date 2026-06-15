@@ -19,7 +19,7 @@ public class SimulationConsumer {
 
     @KafkaListener(topics = "spac-simulations", groupId = "simulation-group")
     public void consumeSimulationTask(String message) {
-        log.info("🚀 [SIMULATION ENGINE] Received Task: {}", message);
+        log.info(" [SIMULATION ENGINE] Received Task: {}", message);
 
         try {
             // 1. Parse JSON
@@ -27,7 +27,7 @@ public class SimulationConsumer {
             String ticker = jsonNode.get("ticker").asText();
 
             // 2. Simulate Heavy Math
-            log.info("⚙️ Crunching heavy mathematical models for {}...", ticker);
+            log.info(" Crunching heavy mathematical models for {}...", ticker);
             Thread.sleep(5000);
 
             // 3. Create Entity and Save
@@ -36,10 +36,10 @@ public class SimulationConsumer {
             result.setResultValue(Math.random() * 1000);
 
             repository.save(result);
-            log.info("✅ [SIMULATION ENGINE] Result successfully persisted for {}", ticker);
+            log.info(" [SIMULATION ENGINE] Result successfully persisted for {}", ticker);
 
         } catch (Exception e) {
-            log.error("❌ Simulation failed for message: {}", message, e);
+            log.error(" Simulation failed for message: {}", message, e);
         }
     }
 }
